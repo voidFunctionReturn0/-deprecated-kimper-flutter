@@ -1,0 +1,5 @@
+enum: Exchange
+serialized: byName
+values:
+    - upbit
+    - bybit

@@ -1,0 +1,4 @@
+enum: Ticker
+serialized: byName
+values:
+    - xrp

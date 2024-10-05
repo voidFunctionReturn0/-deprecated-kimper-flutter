@@ -1,0 +1,7 @@
+class: Notification
+fields:
+  botToken: String
+  ticker: Ticker
+  koreaExchange: Exchange
+  foreignExchange: Exchange
+  primeum: int
