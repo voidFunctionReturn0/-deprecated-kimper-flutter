@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:kimper_client/kimper_client.dart';
 import 'package:kimper_flutter/models/app_ticker.dart';
+import 'package:kimper_flutter/models/exchange_rate.dart';
+import 'package:kimper_flutter/models/kimchi_premium.dart';
+import 'package:kimper_flutter/models/price.dart';
+import 'package:kimper_flutter/repo.dart';
 import 'package:kimper_flutter/styles/app_color.dart';
 import 'package:kimper_flutter/styles/app_text_style.dart';
-import 'package:kimper_flutter/common.dart';
-import 'package:provider/provider.dart';
-
-import 'home_view_model.dart';
+import 'package:kimper_flutter/styles/app_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -22,13 +23,27 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class _Body extends StatelessWidget {
-  late final HomeViewModel viewModel;
+class _Body extends StatefulWidget {
+  @override
+  State<_Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<_Body> {
+  final _delay = 5;
+  Price? _upbitXrpPrice;
+  Price? _bybitXrpPrice;
+  ExchangeRate? _exchangeRate;
+  KimchiPremium? _kimchiPremium;
+
+  @override
+  void initState() {
+    // _loadUpbitXrpPrice();
+    _loadBybitXrpPrice();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    // viewModel = Provider.of<HomeViewModel>(context);
-
     return Center(
       child: Container(
         constraints: BoxConstraints(maxWidth: 808),
@@ -65,31 +80,14 @@ class _Body extends StatelessWidget {
             ),
             TableRow(
               children: _tableRow(
-                // [
-                //   Utils.toStr(Ticker.xrp),
-                //   KimchiPremium(
-                //     Ticker.xrp,
-                //     Exchange.upbit,
-                //     Exchange.bybit,
-                //     _exchangeRate(Exchange.upbit, Exchange.bybit),
-                //   ).toStr(),
-                //   Price(
-                //     Ticker.xrp,
-                //     Exchange.upbit,
-                //   ).toStr(Currency.krw),
-                //   Price(
-                //     Ticker.xrp,
-                //     Exchange.bybit,
-                //   ).toStr(Currency.krw),
-                // ],
                 [
                   _tickerName(AppTicker(Ticker.xrp)),
-                  // viewModel.kimchiPremium,
-                  // viewModel.upbitXrpPrice,
-                  // viewModel.bybitXrpPrice,
-                  Text('1.23%', style: AppTextStyle.bodyMedium2),
-                  Text('301원', style: AppTextStyle.bodyMedium2),
-                  Text('302원', style: AppTextStyle.bodyMedium2),
+                  Text(_kimchiPremium?.toString() ?? '..',
+                      style: AppTextStyle.bodyMedium2),
+                  Text(_upbitXrpPrice?.toString() ?? '..',
+                      style: AppTextStyle.bodyMedium2),
+                  Text(_bybitXrpPrice?.toString() ?? '..',
+                      style: AppTextStyle.bodyMedium2),
                 ],
               ),
             ),
@@ -132,6 +130,7 @@ class _Body extends StatelessWidget {
 
   Widget _tickerName(AppTicker ticker) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
           ticker.nameTicker,
@@ -146,5 +145,24 @@ class _Body extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Future<void> _loadUpbitXrpPrice() async {
+    Map responseBody = await Repo.get(
+      Uri.parse('https://api.upbit.com/v1/ticker?markets=KRW-XRP'),
+    );
+    setState(() {
+      _upbitXrpPrice = Price(responseBody['trade_price']);
+    });
+  }
+
+  Future<void> _loadBybitXrpPrice() async {
+    Map responseBody = await Repo.get(
+      Uri.parse(
+          'https://api.bybit.com/spot/v3/public/quote/ticker/price?symbol=XRPUSDT'),
+    );
+    setState(() {
+      _bybitXrpPrice = Price(responseBody['result']['price']);
+    });
   }
 }

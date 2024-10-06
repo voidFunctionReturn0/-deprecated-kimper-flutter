@@ -1,6 +1,6 @@
 import 'package:kimper_client/kimper_client.dart';
 import 'package:flutter/material.dart';
-import 'package:kimper_flutter/ui/home/home_screen.dart';
+import 'package:kimper_flutter/ui/home_screen.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
 
 var client = Client('http://$localhost:8080/')

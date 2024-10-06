@@ -3,18 +3,22 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
 class Repo {
-  // TODO: Response가 아닌, json 파싱한 것을 반환하기 https://stackoverflow.com/questions/15866290/the-best-way-to-parse-a-json-in-dart
-  static Future<Response?> get(Uri url) async {
+  static Future<Map> get(Uri url) async {
+    debugPrint('## get: $url');
+
     final response = await Dio().getUri(url);
+
+    debugPrint('## Repo.get response: ${response.data.first.runtimeType}');
 
     switch (response.statusCode) {
       case HttpStatus.ok:
-        return response.data.first;
+        var result = Map.from(response.data.first);
+        return result;
 
       default:
         debugPrint(
             '## Repo.get Error: ${response.statusCode} ${response.statusMessage}');
-        return null;
+        return {};
     }
   }
 }
