@@ -1,5 +1,7 @@
 import 'package:serverpod/serverpod.dart';
 
+// TODO: 이 파일 삭제
+
 // This is an example endpoint of your server. It's best practice to use the
 // `Endpoint` ending of the class name, but it will be removed when accessing
 // the endpoint from the client. I.e., this endpoint can be accessed through

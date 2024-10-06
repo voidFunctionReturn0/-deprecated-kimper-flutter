@@ -19,7 +19,7 @@ abstract class Notification
     required this.ticker,
     required this.koreaExchange,
     required this.foreignExchange,
-    required this.primeum,
+    required this.kimchiPrimeum,
   });
 
   factory Notification({
@@ -27,7 +27,7 @@ abstract class Notification
     required _i2.Ticker ticker,
     required _i2.Exchange koreaExchange,
     required _i2.Exchange foreignExchange,
-    required int primeum,
+    required double kimchiPrimeum,
   }) = _NotificationImpl;
 
   factory Notification.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -38,7 +38,7 @@ abstract class Notification
           _i2.Exchange.fromJson((jsonSerialization['koreaExchange'] as String)),
       foreignExchange: _i2.Exchange.fromJson(
           (jsonSerialization['foreignExchange'] as String)),
-      primeum: jsonSerialization['primeum'] as int,
+      kimchiPrimeum: (jsonSerialization['kimchiPrimeum'] as num).toDouble(),
     );
   }
 
@@ -50,14 +50,14 @@ abstract class Notification
 
   _i2.Exchange foreignExchange;
 
-  int primeum;
+  double kimchiPrimeum;
 
   Notification copyWith({
     String? botToken,
     _i2.Ticker? ticker,
     _i2.Exchange? koreaExchange,
     _i2.Exchange? foreignExchange,
-    int? primeum,
+    double? kimchiPrimeum,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -66,7 +66,7 @@ abstract class Notification
       'ticker': ticker.toJson(),
       'koreaExchange': koreaExchange.toJson(),
       'foreignExchange': foreignExchange.toJson(),
-      'primeum': primeum,
+      'kimchiPrimeum': kimchiPrimeum,
     };
   }
 
@@ -77,7 +77,7 @@ abstract class Notification
       'ticker': ticker.toJson(),
       'koreaExchange': koreaExchange.toJson(),
       'foreignExchange': foreignExchange.toJson(),
-      'primeum': primeum,
+      'kimchiPrimeum': kimchiPrimeum,
     };
   }
 
@@ -93,13 +93,13 @@ class _NotificationImpl extends Notification {
     required _i2.Ticker ticker,
     required _i2.Exchange koreaExchange,
     required _i2.Exchange foreignExchange,
-    required int primeum,
+    required double kimchiPrimeum,
   }) : super._(
           botToken: botToken,
           ticker: ticker,
           koreaExchange: koreaExchange,
           foreignExchange: foreignExchange,
-          primeum: primeum,
+          kimchiPrimeum: kimchiPrimeum,
         );
 
   @override
@@ -108,14 +108,14 @@ class _NotificationImpl extends Notification {
     _i2.Ticker? ticker,
     _i2.Exchange? koreaExchange,
     _i2.Exchange? foreignExchange,
-    int? primeum,
+    double? kimchiPrimeum,
   }) {
     return Notification(
       botToken: botToken ?? this.botToken,
       ticker: ticker ?? this.ticker,
       koreaExchange: koreaExchange ?? this.koreaExchange,
       foreignExchange: foreignExchange ?? this.foreignExchange,
-      primeum: primeum ?? this.primeum,
+      kimchiPrimeum: kimchiPrimeum ?? this.kimchiPrimeum,
     );
   }
 }

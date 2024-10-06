@@ -4,4 +4,4 @@ fields:
   ticker: Ticker
   koreaExchange: Exchange
   foreignExchange: Exchange
-  primeum: int
+  kimchiPrimeum: double

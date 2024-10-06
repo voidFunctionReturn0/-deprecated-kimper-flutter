@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kimper_client/kimper_client.dart';
+import 'package:kimper_flutter/models/kimchi_premium.dart';
+import 'package:kimper_flutter/models/price.dart';
 import 'package:kimper_flutter/styles/app_color.dart';
 import 'package:kimper_flutter/styles/app_text_style.dart';
+import 'package:kimper_flutter/utils.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -28,7 +32,7 @@ class _Body extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 40, horizontal: 20),
           child: Column(
             children: [
-              _kimp()
+              _kimp(),
             ],
           ),
         ),
@@ -47,7 +51,7 @@ class _Body extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(
+        Space(
           height: 20,
         ),
         Table(
@@ -56,7 +60,25 @@ class _Body extends StatelessWidget {
               children: _columnTitles(['코인', '김프', '업비트', '바이비트']),
             ),
             TableRow(
-              children: _xrp(),
+              children: _tableRow(
+                  // [
+                  //   Utils.toStr(Ticker.xrp),
+                  //   KimchiPremium(
+                  //     Ticker.xrp,
+                  //     Exchange.upbit,
+                  //     Exchange.bybit,
+                  //     _exchangeRate(Exchange.upbit, Exchange.bybit),
+                  //   ).toStr(),
+                  //   Price(
+                  //     Ticker.xrp,
+                  //     Exchange.upbit,
+                  //   ).toStr(Currency.krw),
+                  //   Price(
+                  //     Ticker.xrp,
+                  //     Exchange.bybit,
+                  //   ).toStr(Currency.krw),
+                  // ],
+                  ['리플', '1.23%', '300원', '301원']),
             ),
           ],
         ),
@@ -66,32 +88,40 @@ class _Body extends StatelessWidget {
 
   List<Widget> _columnTitles(List<String> titles) {
     return titles
-        .map((title) => Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
-              child: TableCell(
-                child: Text(
-                  title,
-                  style: AppTextStyle.bodyMedium,
-                ),
+        .map(
+          (title) => TableCell(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+              child: Text(
+                title,
+                style: (title == '김프')
+                    ? AppTextStyle.bodyMedium1.copyWith(color: Colors.red)
+                    : AppTextStyle.bodyMedium1,
               ),
-            ))
+            ),
+          ),
+        )
         .toList();
   }
 
-  List<Widget> _xrp() {
-    return [
-      TableCell(
-        child: Text('XRP'),
-      ),
-      TableCell(
-        child: Text('1%'),
-      ),
-      TableCell(
-        child: Text('333원'),
-      ),
-      TableCell(
-        child: Text('332원'),
-      ),
-    ];
+  List<Widget> _tableRow(List<String> contents) {
+    return contents
+        .map(
+          (content) => TableCell(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+              child: Text(
+                content,
+                style: AppTextStyle.bodyMedium2,
+              ),
+            ),
+          ),
+        )
+        .toList();
+  }
+
+  double _exchangeRate(Exchange upbit, Exchange bybit) {
+    // TODO
+    return 1.0;
   }
 }

@@ -10,8 +10,16 @@ class AppTextStyle {
     color: AppColor.black2,
   );
 
-  static const bodyMedium = TextStyle(
+  static const bodyMedium1 = TextStyle(
     fontWeight: FontWeight.bold,
+    fontSize: 16,
+    height: 1.5,
+    letterSpacing: -0.03,
+    color: AppColor.black2,
+  );
+
+  static const bodyMedium2 = TextStyle(
+    fontWeight: FontWeight.w500,
     fontSize: 16,
     height: 1.5,
     letterSpacing: -0.03,
