@@ -9,6 +9,7 @@ import 'package:kimper_flutter/styles/app_color.dart';
 import 'package:kimper_flutter/styles/app_text_style.dart';
 import 'package:kimper_flutter/styles/app_widget.dart';
 
+// TODO: 데이터를 서버에서 불러오고, 서버-클라이언트 스트림 통신 필요
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
