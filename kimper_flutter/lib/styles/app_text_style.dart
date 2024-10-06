@@ -25,4 +25,11 @@ class AppTextStyle {
     letterSpacing: -0.03,
     color: AppColor.black2,
   );
+
+  static const bodySmall1 = TextStyle(
+    fontSize: 12,
+    height: 1.4,
+    letterSpacing: -0.03,
+    color: AppColor.gray1,
+  );
 }

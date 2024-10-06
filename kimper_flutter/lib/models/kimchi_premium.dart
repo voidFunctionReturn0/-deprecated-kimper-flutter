@@ -1,5 +1,5 @@
 import 'package:kimper_client/kimper_client.dart';
-import 'package:kimper_flutter/data/repo.dart';
+import 'package:kimper_flutter/repo.dart';
 
 class KimchiPremium {
   late final int value;

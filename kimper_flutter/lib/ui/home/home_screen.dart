@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:kimper_client/kimper_client.dart';
-import 'package:kimper_flutter/models/kimchi_premium.dart';
-import 'package:kimper_flutter/models/price.dart';
+import 'package:kimper_flutter/models/app_ticker.dart';
 import 'package:kimper_flutter/styles/app_color.dart';
 import 'package:kimper_flutter/styles/app_text_style.dart';
-import 'package:kimper_flutter/utils.dart';
+import 'package:kimper_flutter/common.dart';
+import 'package:provider/provider.dart';
+
+import 'home_view_model.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -21,10 +23,12 @@ class HomeScreen extends StatelessWidget {
 }
 
 class _Body extends StatelessWidget {
-  const _Body();
+  late final HomeViewModel viewModel;
 
   @override
   Widget build(BuildContext context) {
+    // viewModel = Provider.of<HomeViewModel>(context);
+
     return Center(
       child: Container(
         constraints: BoxConstraints(maxWidth: 808),
@@ -61,24 +65,33 @@ class _Body extends StatelessWidget {
             ),
             TableRow(
               children: _tableRow(
-                  // [
-                  //   Utils.toStr(Ticker.xrp),
-                  //   KimchiPremium(
-                  //     Ticker.xrp,
-                  //     Exchange.upbit,
-                  //     Exchange.bybit,
-                  //     _exchangeRate(Exchange.upbit, Exchange.bybit),
-                  //   ).toStr(),
-                  //   Price(
-                  //     Ticker.xrp,
-                  //     Exchange.upbit,
-                  //   ).toStr(Currency.krw),
-                  //   Price(
-                  //     Ticker.xrp,
-                  //     Exchange.bybit,
-                  //   ).toStr(Currency.krw),
-                  // ],
-                  ['리플', '1.23%', '300원', '301원']),
+                // [
+                //   Utils.toStr(Ticker.xrp),
+                //   KimchiPremium(
+                //     Ticker.xrp,
+                //     Exchange.upbit,
+                //     Exchange.bybit,
+                //     _exchangeRate(Exchange.upbit, Exchange.bybit),
+                //   ).toStr(),
+                //   Price(
+                //     Ticker.xrp,
+                //     Exchange.upbit,
+                //   ).toStr(Currency.krw),
+                //   Price(
+                //     Ticker.xrp,
+                //     Exchange.bybit,
+                //   ).toStr(Currency.krw),
+                // ],
+                [
+                  _tickerName(AppTicker(Ticker.xrp)),
+                  // viewModel.kimchiPremium,
+                  // viewModel.upbitXrpPrice,
+                  // viewModel.bybitXrpPrice,
+                  Text('1.23%', style: AppTextStyle.bodyMedium2),
+                  Text('301원', style: AppTextStyle.bodyMedium2),
+                  Text('302원', style: AppTextStyle.bodyMedium2),
+                ],
+              ),
             ),
           ],
         ),
@@ -104,24 +117,34 @@ class _Body extends StatelessWidget {
         .toList();
   }
 
-  List<Widget> _tableRow(List<String> contents) {
+  List<Widget> _tableRow(List<Widget> contents) {
     return contents
         .map(
           (content) => TableCell(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-              child: Text(
-                content,
-                style: AppTextStyle.bodyMedium2,
-              ),
+              child: content,
             ),
           ),
         )
         .toList();
   }
 
-  double _exchangeRate(Exchange upbit, Exchange bybit) {
-    // TODO
-    return 1.0;
+  Widget _tickerName(AppTicker ticker) {
+    return Row(
+      children: [
+        Text(
+          ticker.nameTicker,
+          style: AppTextStyle.bodyMedium2,
+        ),
+        Space(width: 8),
+        Circle.build(size: 4, color: AppColor.gray1),
+        Space(width: 8),
+        Text(
+          ticker.nameKorean,
+          style: AppTextStyle.bodySmall1,
+        ),
+      ],
+    );
   }
 }
