@@ -1,0 +1,8 @@
+class: KimchiPremium
+fields:
+  ticker: Ticker
+  koreaExchange: Exchange
+  koreaExchangePrice: double
+  foreignExchange: Exchange
+  foreignExchangePrice: double
+  kimchiPrimeum: double

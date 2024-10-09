@@ -14,10 +14,12 @@ import 'package:serverpod/serverpod.dart' as _i1;
 import 'package:serverpod/protocol.dart' as _i2;
 import 'example.dart' as _i3;
 import 'exchange.dart' as _i4;
-import 'notification.dart' as _i5;
-import 'ticker.dart' as _i6;
+import 'kimchi_premium.dart' as _i5;
+import 'notification.dart' as _i6;
+import 'ticker.dart' as _i7;
 export 'example.dart';
 export 'exchange.dart';
+export 'kimchi_premium.dart';
 export 'notification.dart';
 export 'ticker.dart';
 
@@ -44,11 +46,14 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i4.Exchange) {
       return _i4.Exchange.fromJson(data) as T;
     }
-    if (t == _i5.Notification) {
-      return _i5.Notification.fromJson(data) as T;
+    if (t == _i5.KimchiPremium) {
+      return _i5.KimchiPremium.fromJson(data) as T;
     }
-    if (t == _i6.Ticker) {
-      return _i6.Ticker.fromJson(data) as T;
+    if (t == _i6.Notification) {
+      return _i6.Notification.fromJson(data) as T;
+    }
+    if (t == _i7.Ticker) {
+      return _i7.Ticker.fromJson(data) as T;
     }
     if (t == _i1.getType<_i3.Example?>()) {
       return (data != null ? _i3.Example.fromJson(data) : null) as T;
@@ -56,11 +61,14 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i1.getType<_i4.Exchange?>()) {
       return (data != null ? _i4.Exchange.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i5.Notification?>()) {
-      return (data != null ? _i5.Notification.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i5.KimchiPremium?>()) {
+      return (data != null ? _i5.KimchiPremium.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i6.Ticker?>()) {
-      return (data != null ? _i6.Ticker.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i6.Notification?>()) {
+      return (data != null ? _i6.Notification.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<_i7.Ticker?>()) {
+      return (data != null ? _i7.Ticker.fromJson(data) : null) as T;
     }
     try {
       return _i2.Protocol().deserialize<T>(data, t);
@@ -78,10 +86,13 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data is _i4.Exchange) {
       return 'Exchange';
     }
-    if (data is _i5.Notification) {
+    if (data is _i5.KimchiPremium) {
+      return 'KimchiPremium';
+    }
+    if (data is _i6.Notification) {
       return 'Notification';
     }
-    if (data is _i6.Ticker) {
+    if (data is _i7.Ticker) {
       return 'Ticker';
     }
     className = _i2.Protocol().getClassNameForObject(data);
@@ -99,11 +110,14 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data['className'] == 'Exchange') {
       return deserialize<_i4.Exchange>(data['data']);
     }
+    if (data['className'] == 'KimchiPremium') {
+      return deserialize<_i5.KimchiPremium>(data['data']);
+    }
     if (data['className'] == 'Notification') {
-      return deserialize<_i5.Notification>(data['data']);
+      return deserialize<_i6.Notification>(data['data']);
     }
     if (data['className'] == 'Ticker') {
-      return deserialize<_i6.Ticker>(data['data']);
+      return deserialize<_i7.Ticker>(data['data']);
     }
     if (data['className'].startsWith('serverpod.')) {
       data['className'] = data['className'].substring(10);

@@ -11,6 +11,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 import '../endpoints/example_endpoint.dart' as _i2;
+import '../endpoints/kimchi_premium_stream_endpoint.dart' as _i3;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -21,7 +22,13 @@ class Endpoints extends _i1.EndpointDispatch {
           server,
           'example',
           null,
-        )
+        ),
+      'kimchiPremiumStream': _i3.KimchiPremiumStreamEndpoint()
+        ..initialize(
+          server,
+          'kimchiPremiumStream',
+          null,
+        ),
     };
     connectors['example'] = _i1.EndpointConnector(
       name: 'example',
@@ -44,6 +51,26 @@ class Endpoints extends _i1.EndpointDispatch {
             session,
             params['name'],
           ),
+        )
+      },
+    );
+    connectors['kimchiPremiumStream'] = _i1.EndpointConnector(
+      name: 'kimchiPremiumStream',
+      endpoint: endpoints['kimchiPremiumStream']!,
+      methodConnectors: {
+        'streamkimchiPremiums': _i1.MethodStreamConnector(
+          name: 'streamkimchiPremiums',
+          params: {},
+          streamParams: {},
+          returnType: _i1.MethodStreamReturnType.streamType,
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+            Map<String, Stream> streamParams,
+          ) =>
+              (endpoints['kimchiPremiumStream']
+                      as _i3.KimchiPremiumStreamEndpoint)
+                  .streamkimchiPremiums(session),
         )
       },
     );

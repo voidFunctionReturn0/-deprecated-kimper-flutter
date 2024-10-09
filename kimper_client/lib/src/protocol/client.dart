@@ -11,7 +11,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'dart:async' as _i2;
-import 'protocol.dart' as _i3;
+import 'package:kimper_client/src/protocol/kimchi_premium.dart' as _i3;
+import 'protocol.dart' as _i4;
 
 /// {@category Endpoint}
 class EndpointExample extends _i1.EndpointRef {
@@ -24,6 +25,23 @@ class EndpointExample extends _i1.EndpointRef {
         'example',
         'hello',
         {'name': name},
+      );
+}
+
+/// {@category Endpoint}
+class EndpointKimchiPremiumStream extends _i1.EndpointRef {
+  EndpointKimchiPremiumStream(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'kimchiPremiumStream';
+
+  _i2.Stream<_i3.KimchiPremium> streamkimchiPremiums() =>
+      caller.callStreamingServerEndpoint<_i2.Stream<_i3.KimchiPremium>,
+          _i3.KimchiPremium>(
+        'kimchiPremiumStream',
+        'streamkimchiPremiums',
+        {},
+        {},
       );
 }
 
@@ -43,7 +61,7 @@ class Client extends _i1.ServerpodClientShared {
     bool? disconnectStreamsOnLostInternetConnection,
   }) : super(
           host,
-          _i3.Protocol(),
+          _i4.Protocol(),
           securityContext: securityContext,
           authenticationKeyManager: authenticationKeyManager,
           streamingConnectionTimeout: streamingConnectionTimeout,
@@ -54,12 +72,18 @@ class Client extends _i1.ServerpodClientShared {
               disconnectStreamsOnLostInternetConnection,
         ) {
     example = EndpointExample(this);
+    kimchiPremiumStream = EndpointKimchiPremiumStream(this);
   }
 
   late final EndpointExample example;
 
+  late final EndpointKimchiPremiumStream kimchiPremiumStream;
+
   @override
-  Map<String, _i1.EndpointRef> get endpointRefLookup => {'example': example};
+  Map<String, _i1.EndpointRef> get endpointRefLookup => {
+        'example': example,
+        'kimchiPremiumStream': kimchiPremiumStream,
+      };
 
   @override
   Map<String, _i1.ModuleEndpointCaller> get moduleLookup => {};
