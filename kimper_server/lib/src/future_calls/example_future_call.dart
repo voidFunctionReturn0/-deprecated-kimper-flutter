@@ -1,5 +1,7 @@
 import 'package:serverpod/serverpod.dart';
 
+// TODO: 이 파일 삭제하기
+
 // Future calls are calls that will be invoked at a later time. An example is if
 // you want to send a drip-email campaign after a user signs up. You can
 // schedule a future call for a day, a week, or a month. The calls are stored in
