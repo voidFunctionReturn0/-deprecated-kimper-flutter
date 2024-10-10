@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kimper_client/kimper_client.dart';
+import 'package:kimper_flutter/home/home_ticker.dart';
 import 'package:kimper_flutter/home/home_view_model.dart';
+import 'package:kimper_flutter/models/kimchi_premium_flutter.dart';
+import 'package:kimper_flutter/models/price_flutter.dart';
 import 'package:kimper_flutter/styles/my_text_style.dart';
 import 'package:kimper_flutter/widgets/space.dart';
 
@@ -20,6 +23,7 @@ class HomeKimchiPremium extends ConsumerWidget {
         DataTable(
           columns: _columns(['코인', '김프', '업비트', '바이비트']),
           rows: _rows(kimchiPremiums),
+          horizontalMargin: 0,
         ),
       ],
     );
@@ -45,7 +49,7 @@ List<DataColumn> _columns(List<String> texts) {
 }
 
 List<DataRow> _rows(KimchiPremium kimchiPremium) {
-  // TODO
+  // TODO Kimp to List<Kimp>
   // return switch (kimchiPremiums.length) {
   //   0 => [],
   //   _ => kimchiPremiums
@@ -59,10 +63,10 @@ List<DataRow> _rows(KimchiPremium kimchiPremium) {
   // };
   return [
     DataRow(cells: [
-      DataCell(Text(kimchiPremium.ticker.toString())),
-      DataCell(Text(kimchiPremium.kimchiPrimeum.toString())),
-      DataCell(Text(kimchiPremium.koreaExchangePrice.toString())),
-      DataCell(Text(kimchiPremium.foreignExchangePrice.toString())),
+      DataCell(HomeTicker(kimchiPremium.ticker)),
+      DataCell(Text(KimchiPremiumFlutter.toStr(kimchiPremium.kimchiPrimeum))),
+      DataCell(Text(PriceFlutter.toStr(kimchiPremium.koreaExchangePrice))),
+      DataCell(Text(PriceFlutter.toStr(kimchiPremium.foreignExchangePrice))),
     ])
   ];
 }
